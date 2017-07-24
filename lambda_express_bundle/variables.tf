@@ -2,6 +2,7 @@ variable "config" { type = "map" }
 
 variable "subdomain" {}
 variable "lambda_role_arn" {}
+variable "lambda_path" {}
 
 variable "lambda_runtime" { default = "nodejs6.10"}
 variable "lambda_memory_size" { default = "128" }

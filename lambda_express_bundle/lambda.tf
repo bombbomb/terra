@@ -16,7 +16,7 @@ resource "aws_lambda_function" "current" {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/lambda"
+  source_dir  = "${var.lambda_path}"
   output_path = "lambda.zip"
   depends_on = ["null_resource.npm"]
 }
