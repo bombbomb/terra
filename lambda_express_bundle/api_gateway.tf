@@ -15,7 +15,6 @@ resource "aws_api_gateway_resource" "all_paths" {
 }
 
 resource "aws_api_gateway_deployment" "current" {
-  depends_on = ["module.all_paths_proxy"]
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
   stage_name  = "${var.config["branch"]}"
   description = "Deployed at ${timestamp()}"
@@ -58,14 +57,14 @@ resource "aws_api_gateway_base_path_mapping" "current" {
 
 resource "aws_api_gateway_method" "current" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_rest_api.current.root_resource_id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method = "ANY"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "current" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_rest_api.current.root_resource_id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method = "ANY"
   integration_http_method = "POST"
   type = "AWS_PROXY"
@@ -74,7 +73,7 @@ resource "aws_api_gateway_integration" "current" {
 
 resource "aws_api_gateway_integration_response" "200" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_rest_api.current.root_resource_id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method                 = "${aws_api_gateway_integration.current.http_method}"
   status_code                 = "200"
   response_templates          = { "application/json" = "" }
@@ -82,7 +81,7 @@ resource "aws_api_gateway_integration_response" "200" {
 
 resource "aws_api_gateway_method_response" "200" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_rest_api.current.root_resource_id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method = "${aws_api_gateway_integration.current.http_method}"
   status_code = "200"
   response_models = { "application/json" = "Empty" }
@@ -91,7 +90,7 @@ resource "aws_api_gateway_method_response" "200" {
 
 resource "aws_api_gateway_method_response" "400" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_rest_api.current.root_resource_id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method = "${aws_api_gateway_method.current.http_method}"
   status_code = "400"
   response_models = { "application/json" = "Error" }
@@ -100,7 +99,7 @@ resource "aws_api_gateway_method_response" "400" {
 
 resource "aws_api_gateway_method_response" "500" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_rest_api.current.root_resource_id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method = "${aws_api_gateway_method.current.http_method}"
   status_code = "500"
   response_models = { "application/json" = "Error" }
