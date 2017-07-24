@@ -9,7 +9,9 @@ variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
 variable "lambda_environment_variables" {
   type = "map"
-  default = {}
+  default = {
+    CREATED_BY = "lambda_express_bundle"
+  }
 }
 variable "description" { default = "" }
 
