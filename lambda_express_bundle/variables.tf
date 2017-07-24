@@ -7,7 +7,10 @@ variable "lambda_path" {}
 variable "lambda_runtime" { default = "nodejs6.10"}
 variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
-variable "lambda_environment_variables" { type = "map" }
+variable "lambda_environment_variables" {
+  type = "map"
+  default = {}
+}
 variable "description" { default = "" }
 
 variable "request_parameters" {
