@@ -27,7 +27,7 @@ resource "null_resource" "npm" {
   }
 
   provisioner "local-exec" {
-    command = "cd ${path.module}/lambda && npm install"
+    command = "cd ${var.lambda_path}/lambda && npm install"
   }
 }
 
