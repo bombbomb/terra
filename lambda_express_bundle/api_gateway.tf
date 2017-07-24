@@ -14,14 +14,6 @@ resource "aws_api_gateway_resource" "all_paths" {
   path_part   = "{proxy+}"
 }
 
-module "all_paths_proxy" {
-  source = "github.com/bombbomb/terra//lambda_express"
-  api_gateway_id = "${aws_api_gateway_rest_api.current.id}"
-  resource_id = "${aws_api_gateway_resource.all_paths.id}"
-  http_method = "ANY"
-  lambda_arn = "${aws_lambda_function.current.arn}"
-}
-
 resource "aws_api_gateway_deployment" "current" {
   depends_on = ["module.all_paths_proxy"]
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
