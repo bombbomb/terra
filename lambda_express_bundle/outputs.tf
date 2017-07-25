@@ -3,5 +3,5 @@ output "lambda_arn" {
 }
 
 output "archive_output_path" {
-  value = "${data.archive_file.lambda_zip.output_path}"
+  value = "${path.module}/${data.archive_file.lambda_zip.output_path}"
 }
