@@ -59,7 +59,7 @@ resource "aws_api_gateway_method" "current" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
   resource_id = "${aws_api_gateway_resource.all_paths.id}"
   http_method = "ANY"
-  authorization = "NONE"
+  authorization = "${var.authorization}"
 }
 
 resource "aws_api_gateway_integration" "current" {

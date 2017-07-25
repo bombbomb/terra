@@ -4,6 +4,8 @@ variable "subdomain" {}
 variable "lambda_role_arn" {}
 variable "lambda_path" {}
 
+variable "authorization" { default = "NONE" }
+
 variable "lambda_runtime" { default = "nodejs6.10"}
 variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
