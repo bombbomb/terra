@@ -1,4 +1,5 @@
 resource "aws_lambda_function" "current" {
+  depends_on = ["null_resource.npm"]
   filename         = "${var.lambda_path}/lambda.zip"
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = "${var.lambda_role_arn}"
