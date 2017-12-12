@@ -3,7 +3,7 @@ resource "aws_lambda_function" "current" {
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = "${var.lambda_role_arn}"
   handler          = "index.handler"
-  source_code_hash = "${data.archive_file.lambda_zip.output_base64sha256}"
+  source_code_hash = "${base64sha256(file("${var.lambda_path}/lambda.zip"))}"
   runtime          = "${var.lambda_runtime}"
   memory_size      = "${var.lambda_memory_size}"
   timeout          = "${var.lambda_timeout}"
