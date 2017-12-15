@@ -89,6 +89,31 @@ resource "aws_api_gateway_method_response" "200" {
   response_parameters = { "method.response.header.Access-Control-Allow-Origin" = true }
 }
 
+resource "aws_api_gateway_integration_response" "202" {
+  rest_api_id = "${aws_api_gateway_rest_api.current.id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
+  http_method                 = "${aws_api_gateway_integration.current.http_method}"
+  status_code                 = "202"
+  response_templates          = { "application/json" = "" }
+}
+
+resource "aws_api_gateway_method_response" "202" {
+  rest_api_id = "${aws_api_gateway_rest_api.current.id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
+  http_method = "${aws_api_gateway_integration.current.http_method}"
+  status_code = "202"
+  response_models = { "application/json" = "Empty" }
+  response_parameters = { "method.response.header.Access-Control-Allow-Origin" = true }
+}
+
+resource "aws_api_gateway_integration_response" "400" {
+  rest_api_id = "${aws_api_gateway_rest_api.current.id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
+  http_method                 = "${aws_api_gateway_integration.current.http_method}"
+  status_code                 = "400"
+  response_templates          = { "application/json" = "" }
+}
+
 resource "aws_api_gateway_method_response" "400" {
   rest_api_id = "${aws_api_gateway_rest_api.current.id}"
   resource_id = "${aws_api_gateway_resource.all_paths.id}"
@@ -96,6 +121,14 @@ resource "aws_api_gateway_method_response" "400" {
   status_code = "400"
   response_models = { "application/json" = "Error" }
   response_parameters = { "method.response.header.Access-Control-Allow-Origin" = true }
+}
+
+resource "aws_api_gateway_integration_response" "500" {
+  rest_api_id = "${aws_api_gateway_rest_api.current.id}"
+  resource_id = "${aws_api_gateway_resource.all_paths.id}"
+  http_method                 = "${aws_api_gateway_integration.current.http_method}"
+  status_code                 = "500"
+  response_templates          = { "application/json" = "" }
 }
 
 resource "aws_api_gateway_method_response" "500" {
