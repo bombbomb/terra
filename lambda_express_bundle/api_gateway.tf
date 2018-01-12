@@ -34,7 +34,7 @@ data "aws_acm_certificate" "selected" {
 }
 
 resource "aws_api_gateway_domain_name" "current" {
-  domain_name = "${var.config["branch"] == "master" ? "${var.subdomain}.bombbomb.io" : "${var.config["branch"]}-${var.subdomain}.dev.bombbomb.io" }"
+  domain_name = "${var.config["branch"] == "master" ? "${var.subdomain}.bombbomb.io" : "${var.sub_subdomain == "" ? "" : "${var.sub_subdomain}."}${var.config["branch"]}-${var.subdomain}.dev.bombbomb.io" }"
   certificate_arn = "${var.certificate_arn == "" ? "${data.aws_acm_certificate.selected.arn}" : "${var.certificate_arn}" }"
 }
 
