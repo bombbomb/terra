@@ -1,7 +1,7 @@
 variable "config" { type = "map" }
 
 variable "subdomain" {}
-variable "sub_subdomain" {}
+variable "sub_subdomain" { default = "" }
 variable "certificate_arn" { default = "" }
 variable "lambda_role_arn" {}
 variable "lambda_path" {}
