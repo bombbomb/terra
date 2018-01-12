@@ -4,7 +4,7 @@ data "aws_iam_role" "lambda_role" { role_name = "${var.config["prefix"]}-AppRole
 
 # API Gateway
 resource "aws_api_gateway_rest_api" "current" {
-  name        = "${var.config["prefix"]}-${var.subdomain}"
+  name        = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }"
   description = "${var.description}"
 }
 
