@@ -29,7 +29,7 @@ resource "aws_api_gateway_deployment" "current" {
 }
 
 data "aws_acm_certificate" "selected" {
-  domain   = "*.bombbomb.io"
+  domain   = "${var.sub_subdomain == "" ? "*.bombbomb.io" : "${var.config["branch"] == "master" ? "*.${var.subdomain}.bombbomb.io" : "*.${var.config["branch"]}-${var.subdomain}.dev.bombbomb.io"}" }"
   statuses = ["ISSUED"]
 }
 
