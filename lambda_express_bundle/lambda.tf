@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "current" {
-  filename         = "lambda.zip"
+  filename         = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }-lambda.zip"
   function_name    = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }"
   role             = "${var.lambda_role_arn}"
   handler          = "index.handler"
@@ -17,7 +17,7 @@ resource "aws_lambda_function" "current" {
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_dir  = "${var.lambda_path}"
-  output_path = "lambda.zip"
+  output_path = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }-lambda.zip"
   depends_on = ["null_resource.npm"]
 }
 
