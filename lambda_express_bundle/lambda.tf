@@ -27,7 +27,7 @@ resource "null_resource" "npm" {
   }
 
   provisioner "local-exec" {
-    command = "cd ${var.lambda_path} && npm install && npm run lighthouse-build --if-present"
+    command = "cd ${var.lambda_path} && ${var.build_command}"
   }
 }
 
