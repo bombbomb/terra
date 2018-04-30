@@ -18,7 +18,19 @@ variable "lambda_timeout" { default = "30" }
 variable "lambda_environment_variables" {
   type = "map"
   default = {
-    CREATED_BY = "lambda_express_bundle"
+    CREATED_BY = "lambda_express_bundle_vpc"
+  }
+}
+variable "lambda_security_group_ids" {
+  type = "map"
+  default = {
+    CREATED_BY = "lambda_express_bundle_vpc"
+  }
+}
+variable "lambda_subnet_ids" {
+  type = "map"
+  default = {
+    CREATED_BY = "lambda_express_bundle_vpc"
   }
 }
 variable "description" { default = "" }
