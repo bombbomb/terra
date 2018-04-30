@@ -22,16 +22,10 @@ variable "lambda_environment_variables" {
   }
 }
 variable "lambda_security_group_ids" {
-  type = "map"
-  default = {
-    CREATED_BY = "lambda_express_bundle_vpc"
-  }
+  type = "list"
 }
 variable "lambda_subnet_ids" {
-  type = "map"
-  default = {
-    CREATED_BY = "lambda_express_bundle_vpc"
-  }
+  type = "list"
 }
 variable "description" { default = "" }
 
