@@ -11,8 +11,8 @@ resource "aws_lambda_function" "current" {
     variables = "${var.lambda_environment_variables}"
   }
   vpc_config {
-    security_group_ids = "${var.lambda_security_group_ids}"
-    subnet_ids = "${var.lambda_subnet_ids}"
+    security_group_ids = ["${var.lambda_security_group_ids}"]
+    subnet_ids = ["${var.lambda_subnet_ids}"]
   }
 }
 
