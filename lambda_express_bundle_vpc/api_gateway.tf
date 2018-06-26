@@ -78,9 +78,10 @@ resource "aws_api_gateway_integration" "current" {
   uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.current.arn}/invocations"
 }
 
+# handle root requests
 resource "aws_api_gateway_method" "proxy_root" {
   rest_api_id   = "${aws_api_gateway_rest_api.current.id}"
-  resource_id   = "${aws_api_gateway_rest_api.all_paths.id}"
+  resource_id   = "${aws_api_gateway_rest_api.current.root_resource_id}"
   http_method   = "ANY"
   authorization = "${var.authorization}"
 }
