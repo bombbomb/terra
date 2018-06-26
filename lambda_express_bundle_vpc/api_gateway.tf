@@ -82,7 +82,7 @@ resource "aws_api_gateway_method" "proxy_root" {
   rest_api_id   = "${aws_api_gateway_rest_api.current.id}"
   resource_id   = "${aws_api_gateway_rest_api.all_paths.id}"
   http_method   = "ANY"
-  authorization = "NONE"
+  authorization = "${var.authorization}"
 }
 
 resource "aws_api_gateway_integration" "lambda_root" {
