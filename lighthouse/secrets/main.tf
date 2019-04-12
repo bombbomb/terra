@@ -1,10 +1,9 @@
 variable "config" { type = "map" }
-variable "name" { type = "string" }
-variable "value" { type = "string" }
+variable "secrets" { type = "map" }
 
 locals {
-  json_line = "{ \"value\": \"${var.value}\" }"
-  url = "${var.config["lighthouse_url"]}/v1/apps/${var.config["app"]}/${var.config["prefix"]}/secrets/${var.name}"
+  json_line = "{ \"secrets\": ${jsonencode(var.secrets)} }"
+  url = "${var.config["lighthouse_url"]}/v1/apps/${var.config["app"]}/${var.config["prefix"]}/secrets/map"
   user = "${var.config["lighthouse_user"]}:${var.config["lighthouse_password"]}"
 }
 
