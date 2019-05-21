@@ -7,7 +7,7 @@ variable "lambda_hash" { default = "" }
 
 variable "authorization" { default = "NONE" }
 
-variable "lambda_runtime" { default = "nodejs6.10"}
+variable "lambda_runtime" { default = "nodejs8.10"}
 variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
 variable "lambda_environment_variables" {
