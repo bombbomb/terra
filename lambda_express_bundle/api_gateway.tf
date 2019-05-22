@@ -5,7 +5,7 @@ data "aws_region" "current" {
 }
 
 data "aws_iam_role" "lambda_role" {
-  role_name = "${var.config["prefix"]}-AppRole"
+  name = "${var.config["prefix"]}-AppRole"
 }
 
 # API Gateway
