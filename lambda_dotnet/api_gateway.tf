@@ -27,7 +27,10 @@ resource "aws_api_gateway_deployment" "current" {
     create_before_destroy = true
   }
 
-  depends_on = ["aws_api_gateway_method.current"]
+  depends_on = [
+    "aws_api_gateway_method.current",
+    "aws_api_gateway_integration.current"
+  ]
 }
 
 data "aws_acm_certificate" "selected" {
