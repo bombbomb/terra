@@ -1,8 +1,6 @@
 data "aws_caller_identity" "current" {}
 
-data "aws_region" "current" {
-  current = true
-}
+data "aws_region" "current" {}
 
 # API Gateway
 resource "aws_api_gateway_rest_api" "current" {
