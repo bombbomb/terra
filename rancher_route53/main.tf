@@ -4,7 +4,7 @@ variable "ingress_dns" {}
 variable "ttl" { default = "30" }
 
 data "aws_route53_zone" "main" {
-    name = "${var.hosted_zone}"
+    name = "${var.parent_dns}"
 }
 resource "aws_route53_zone" "app_zone" {
     name = "${var.child_full_dns}"
