@@ -7,6 +7,11 @@ resource "aws_iam_role" "app_role" {
         {
             "Action": "sts:AssumeRole",
             "Principal": {
+                "Service": [
+                    "ec2.amazonaws.com",
+                    "ecs-tasks.amazonaws.com",
+                    "lambda.amazonaws.com"
+                ],
                 "AWS": [
                     "arn:aws:iam::${var.server_account_id}:root",
                     "arn:aws:iam::${var.main_account_id}:root"
