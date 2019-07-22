@@ -229,7 +229,7 @@ resource "aws_iam_role_policy" "app_deployment_policy" {
         "arn:aws:sns:*:*:${var.prefix}-*",
         "arn:aws:logs:*:*:log-group:/apps/${var.prefix}-*",
         "arn:aws:events:*:*:rule/${var.prefix}-*",
-        "arn:aws:route53:::hostedzone/${aws_route53_zone.app_zone.zone_id}"
+        "arn:aws:route53:::hostedzone/${var.route53_app_zone_id}"
       ]
     },
     {
