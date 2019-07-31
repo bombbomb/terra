@@ -10,7 +10,7 @@ resource "aws_iam_role" "app_role" {
                 "Service": "${concat([
                     "ec2.amazonaws.com",
                     "ecs-tasks.amazonaws.com",
-                    "lambda.amazonaws.com",
+                    "lambda.amazonaws.com"
                 ],"${var.trust_relationship_roles}")}",
                 "AWS": [
                     "arn:aws:iam::${var.server_account_id}:root",
