@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "app_role_policy_document" {
     statement {
-        actions = ["sts.AssumeRole"]
+        actions = ["sts:AssumeRole"]
         principals = {
             type = "Service"
             identifiers = ["ec2.amazonaws.com", "ecs-tasks.amazonaws.com", "lambda.amazonaws.com"]
