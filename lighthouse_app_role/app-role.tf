@@ -7,7 +7,7 @@ resource "aws_iam_role" "app_role" {
         {
             "Action": "sts:AssumeRole",
             "Principal": {
-                "Service": "${concat([
+                "Service": "$${concat([
                     "ec2.amazonaws.com",
                     "ecs-tasks.amazonaws.com",
                     "lambda.amazonaws.com"
