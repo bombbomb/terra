@@ -193,7 +193,8 @@ resource "aws_iam_role_policy" "app_deployment_policy" {
         "Action": [
             "ec2:Describe*",
             "autoscaling:Describe*",
-            "elasticloadbalancing:Describe*"
+            "elasticloadbalancing:Describe*",
+            "rds:Describe*"
         ],
         "Resource": [
             "*"
