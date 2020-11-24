@@ -223,6 +223,7 @@ resource "aws_iam_role_policy" "app_deployment_policy" {
         "arn:aws:rds:*:*:subgrp:${var.prefix}-*",
         "arn:aws:rds:*:*:es:${var.prefix}-*",
         "arn:aws:es:*:*:domain/${var.prefix}-*",
+        "arn:aws:lambda:*:*:layers:${var.prefix}-*",
         "arn:aws:lambda:*:*:function:${var.prefix}-*",
         "arn:aws:lambda:*:*:event-source-mappings:${var.prefix}-*",
         "arn:aws:apigateway:*::/*",
