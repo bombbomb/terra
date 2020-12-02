@@ -2,11 +2,12 @@ resource "aws_lambda_function" "current" {
   filename         = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }-lambda.zip"
   function_name    = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }"
   role             = "${var.lambda_role_arn}"
-  handler          = "index.handler"
+  handler          = "${var.lambda_handler}"
   source_code_hash = "${data.archive_file.lambda_zip.output_base64sha256}"
   runtime          = "${var.lambda_runtime}"
   memory_size      = "${var.lambda_memory_size}"
   timeout          = "${var.lambda_timeout}"
+  layers           = "${var.lambda_layers}"
   environment {
     variables = "${var.lambda_environment_variables}"
   }
