@@ -2,11 +2,12 @@ resource "aws_lambda_function" "current" {
   filename         = "${var.lambda_path}"
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = "${var.lambda_role_arn}"
-  handler          = "index.handler"
+  handler          = "${var.lambda_handler}"
   source_code_hash = "${var.lambda_hash}"
   runtime          = "${var.lambda_runtime}"
   memory_size      = "${var.lambda_memory_size}"
   timeout          = "${var.lambda_timeout}"
+  layers           = "${var.lambda_layers}"
   environment {
     variables = "${var.lambda_environment_variables}"
   }

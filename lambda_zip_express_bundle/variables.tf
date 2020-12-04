@@ -7,6 +7,7 @@ variable "lambda_hash" { default = "" }
 
 variable "authorization" { default = "NONE" }
 
+variable "lambda_handler" { default = "index.handler"}
 variable "lambda_runtime" { default = "nodejs10.x"}
 variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
@@ -23,3 +24,5 @@ variable "request_parameters" {
   default = {
   }
 }
+
+variable "lambda_layers" { default = [] }
