@@ -1,5 +1,5 @@
-variable "config" { type = "map" }
-variable "secrets" { type = "map" }
+variable "config" { type = map }
+variable "secrets" { type = map }
 
 locals {
   json_line = "{ \"secrets\": ${jsonencode(var.secrets)} }"
@@ -9,7 +9,7 @@ locals {
 
 resource "null_resource" "api_call" {
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
   provisioner "local-exec" {
     command = "curl -f --user ${local.user} -H \"Content-Type: application/json\" -d '${local.json_line}' -X PUT ${local.url}"
