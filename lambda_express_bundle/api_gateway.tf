@@ -79,7 +79,7 @@ resource "aws_api_gateway_integration" "current" {
   uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.current.arn}/invocations"
 }
 
-resource "aws_api_gateway_method_response" "200" {
+resource "aws_api_gateway_method_response" "response_200" {
   rest_api_id = aws_api_gateway_rest_api.current.id
   resource_id = aws_api_gateway_resource.all_paths.id
   http_method = aws_api_gateway_integration.current.http_method
@@ -94,7 +94,7 @@ resource "aws_api_gateway_method_response" "200" {
   }
 }
 
-resource "aws_api_gateway_method_response" "202" {
+resource "aws_api_gateway_method_response" "response_202" {
   rest_api_id = aws_api_gateway_rest_api.current.id
   resource_id = aws_api_gateway_resource.all_paths.id
   http_method = aws_api_gateway_integration.current.http_method
@@ -109,7 +109,7 @@ resource "aws_api_gateway_method_response" "202" {
   }
 }
 
-resource "aws_api_gateway_method_response" "400" {
+resource "aws_api_gateway_method_response" "response_400" {
   rest_api_id = aws_api_gateway_rest_api.current.id
   resource_id = aws_api_gateway_resource.all_paths.id
   http_method = aws_api_gateway_method.current.http_method
@@ -124,7 +124,7 @@ resource "aws_api_gateway_method_response" "400" {
   }
 }
 
-resource "aws_api_gateway_method_response" "500" {
+resource "aws_api_gateway_method_response" "response_500" {
   rest_api_id = aws_api_gateway_rest_api.current.id
   resource_id = aws_api_gateway_resource.all_paths.id
   http_method = aws_api_gateway_method.current.http_method
