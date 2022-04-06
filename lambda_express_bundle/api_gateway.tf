@@ -1,14 +1,14 @@
+locals {
+  domain_name = var.config["branch"] == "master" ? "${var.subdomain}.bombbomb.io" : "${var.config["branch"]}-${var.subdomain}.dev.bombbomb.io"
+}
+
 data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-data "aws_iam_role" "lambda_role" {
-  name = "${var.config["prefix"]}-AppRole"
-}
-
 # API Gateway
 resource "aws_api_gateway_rest_api" "current" {
-  name        = "${var.config["prefix"]}-${var.subdomain}${var.sub_subdomain == "" ? "" : "-${var.sub_subdomain}" }"
+  name        = "${var.config["prefix"]}-${var.subdomain}"
   description = var.description
 }
 
@@ -36,13 +36,13 @@ resource "aws_api_gateway_deployment" "current" {
 }
 
 data "aws_acm_certificate" "selected" {
-  domain   = "${var.sub_subdomain == "" ? "lambda.bombbomb.io" : "${var.config["branch"] == "master" ? "*.${var.subdomain}.bombbomb.io" : "*.${var.config["branch"]}-${var.subdomain}.dev.bombbomb.io"}" }"
+  domain   = "lambda.bombbomb.io"
   statuses = ["ISSUED"]
 }
 
 resource "aws_api_gateway_domain_name" "current" {
-  domain_name     = "${var.config["branch"] == "master" ? "${var.sub_subdomain == "" ? "" : "${var.sub_subdomain}."}${var.subdomain}.bombbomb.io" : "${var.sub_subdomain == "" ? "" : "${var.sub_subdomain}."}${var.config["branch"]}-${var.subdomain}.dev.bombbomb.io" }"
-  certificate_arn = "${var.certificate_arn == "" ? "${data.aws_acm_certificate.selected.arn}" : "${var.certificate_arn}" }"
+  domain_name     = local.domain_name
+  certificate_arn = data.aws_acm_certificate.selected.arn
 }
 
 resource "aws_route53_record" "current" {
