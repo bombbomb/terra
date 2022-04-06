@@ -30,8 +30,8 @@ resource "aws_api_gateway_deployment" "current" {
   }
 
   depends_on = [
-    "aws_api_gateway_method.current",
-    "aws_api_gateway_integration.current"
+    aws_api_gateway_method.current,
+    aws_api_gateway_integration.current
   ]
 }
 
