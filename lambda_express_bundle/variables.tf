@@ -13,7 +13,7 @@ variable "build_command" {
 variable "authorization" { default = "NONE" }
 
 variable "lambda_handler" { default = "index.handler"}
-variable "lambda_runtime" { default = "nodejs10.x"}
+variable "lambda_runtime" { default = "nodejs14.x"}
 variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
 variable "lambda_environment_variables" {
