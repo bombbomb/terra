@@ -7,7 +7,7 @@ variable "lambda_role_arn" {}
 variable "lambda_path" {}
 
 variable "build_command" {
-  default = "npm install && npm run lighthouse-build --if-present"
+  default = "npm ci && npm run lighthouse-build --if-present"
 }
 
 variable "authorization" { default = "NONE" }
