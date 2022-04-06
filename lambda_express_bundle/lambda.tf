@@ -24,7 +24,7 @@ data "archive_file" "lambda_zip" {
 
 resource "null_resource" "npm" {
   triggers {
-    package = "${uuid()}"
+    package = uuid()
   }
 
   provisioner "local-exec" {
@@ -35,7 +35,7 @@ resource "null_resource" "npm" {
 resource "aws_lambda_permission" "current" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.current.arn}"
+  function_name = aws_lambda_function.current.arn
   principal     = "apigateway.amazonaws.com"
   source_arn = "arn:aws:execute-api:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.current.id}/*/*"
 }

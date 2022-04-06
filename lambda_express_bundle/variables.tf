@@ -1,4 +1,4 @@
-variable "config" { type = "map" }
+variable "config" { type = map }
 
 variable "subdomain" {}
 variable "sub_subdomain" { default = "" }
@@ -17,7 +17,7 @@ variable "lambda_runtime" { default = "nodejs10.x"}
 variable "lambda_memory_size" { default = "128" }
 variable "lambda_timeout" { default = "30" }
 variable "lambda_environment_variables" {
-  type = "map"
+  type = map
   default = {
     CREATED_BY = "lambda_express_bundle"
   }
@@ -25,7 +25,7 @@ variable "lambda_environment_variables" {
 variable "description" { default = "" }
 
 variable "request_parameters" {
-  type = "map"
+  type = map
   default = {
   }
 }
