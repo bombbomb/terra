@@ -35,7 +35,6 @@ resource "aws_api_gateway_deployment" "current" {
 
 resource "aws_api_gateway_stage" "current" {
   stage_name    = var.config["branch"]
-  stage_description = "Deployed at ${timestamp()}"
   rest_api_id   = aws_api_gateway_rest_api.current.id
   deployment_id = aws_api_gateway_deployment.current.id
 }
@@ -64,7 +63,7 @@ resource "aws_route53_record" "current" {
 
 resource "aws_api_gateway_base_path_mapping" "current" {
   api_id      = aws_api_gateway_rest_api.current.id
-  stage_name  = aws_api_gateway_deployment.current.stage_name
+  stage_name  = aws_api_gateway_stage.current.stage_name
   domain_name = aws_api_gateway_domain_name.current.domain_name
 }
 
