@@ -10,7 +10,7 @@ resource "aws_s3_object" "lambda_code" {
 }
 
 resource "aws_lambda_function" "current" {
-  filename         = local.zip_filename
+  # filename         = local.zip_filename
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = var.lambda_role_arn
   handler          = var.lambda_handler
