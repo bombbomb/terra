@@ -2,13 +2,8 @@ locals {
   zip_filename = "${var.config["prefix"]}-${var.subdomain}-lambda.zip"
 }
 
-resource "aws_s3_bucket" "lambda_bucket" {
-  bucket = "bombbomb-lighthouse/lambda/${var.config["prefix"]}"
-}
-
 resource "aws_s3_bucket_object" "lambda_code" {
-  bucket = aws_s3_bucket.lambda_bucket.id
-  key    = "my-lambda-function.zip"
+  bucket = "bombbomb-lighthouse/lambda/${var.config["prefix"]}"
   source = data.archive_file.lambda_zip.output_path # Reference to your local zip file
   etag   = filemd5(data.archive_file.lambda_zip.output_path)
 }
@@ -27,7 +22,7 @@ resource "aws_lambda_function" "current" {
     variables = var.lambda_environment_variables
   }
 
-  s3_bucket = aws_s3_bucket.lambda_bucket.id
+  s3_bucket = aws_s3_bucket_object.lambda_code.id
   s3_key    = aws_s3_bucket_object.lambda_code.key
 }
 
