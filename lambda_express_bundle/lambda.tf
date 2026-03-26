@@ -2,12 +2,23 @@ locals {
   zip_filename = "${var.config["prefix"]}-${var.subdomain}-lambda.zip"
 }
 
+resource "aws_s3_bucket" "lambda_bucket" {
+  bucket = "bombbomb-lighthouse/lambda/${var.config["prefix"]}"
+}
+
+resource "aws_s3_bucket_object" "lambda_code" {
+  bucket = aws_s3_bucket.lambda_bucket.id
+  key    = "my-lambda-function.zip"
+  source = data.archive_file.lambda_zip.output_path # Reference to your local zip file
+  etag   = filemd5(data.archive_file.lambda_zip.output_path)
+}
+
 resource "aws_lambda_function" "current" {
   filename         = local.zip_filename
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = var.lambda_role_arn
   handler          = var.lambda_handler
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  # source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime          = var.lambda_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
@@ -15,6 +26,9 @@ resource "aws_lambda_function" "current" {
   environment {
     variables = var.lambda_environment_variables
   }
+
+  s3_bucket = aws_s3_bucket.lambda_bucket.id
+  s3_key    = aws_s3_bucket_object.lambda_code.key
 }
 
 # we need vpc of metrics server and just it's subnet
