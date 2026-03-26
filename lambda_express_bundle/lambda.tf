@@ -23,8 +23,8 @@ resource "aws_lambda_function" "current" {
     variables = var.lambda_environment_variables
   }
 
-  s3_bucket = aws_s3_bucket_object.lambda_code.bucket
-  s3_key    = aws_s3_bucket_object.lambda_code.key
+  s3_bucket = aws_s3_object.lambda_code.bucket
+  s3_key    = aws_s3_object.lambda_code.key
 }
 
 # we need vpc of metrics server and just it's subnet
