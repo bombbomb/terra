@@ -4,6 +4,7 @@ locals {
 
 resource "aws_s3_bucket_object" "lambda_code" {
   bucket = "bombbomb-lighthouse/lambda/${var.config["prefix"]}"
+  key = local.zip_filename
   source = data.archive_file.lambda_zip.output_path # Reference to your local zip file
   etag   = filemd5(data.archive_file.lambda_zip.output_path)
 }
