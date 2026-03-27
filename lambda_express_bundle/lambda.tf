@@ -24,22 +24,22 @@ resource "aws_lambda_function" "current" {
 
 # we need vpc of metrics server and just it's subnet
 
-data "archive_file" "lambda_zip" {
-  type        = "zip"
-  source_dir  = var.lambda_path
-  output_path = local.zip_filename
-  depends_on = [null_resource.npm]
-}
+# data "archive_file" "lambda_zip" {
+#   type        = "zip"
+#   source_dir  = var.lambda_path
+#   output_path = local.zip_filename
+#   depends_on = [null_resource.npm]
+# }
 
-resource "null_resource" "npm" {
-  triggers = {
-    package = uuid()
-  }
+# resource "null_resource" "npm" {
+#   triggers = {
+#     package = uuid()
+#   }
 
-  provisioner "local-exec" {
-    command = "cd ${var.lambda_path} && ${var.build_command}"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "cd ${var.lambda_path} && ${var.build_command}"
+#   }
+# }
 
 resource "aws_lambda_permission" "current" {
   statement_id  = "AllowExecutionFromAPIGateway"
