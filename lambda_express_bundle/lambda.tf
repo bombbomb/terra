@@ -17,8 +17,8 @@ resource "aws_lambda_function" "current" {
   }
 
   # Specify the S3 details
-  s3_bucket        = var.config["lambda_s3_bucket"]
-  s3_key           = var.config["lambda_s3_key"]
+  s3_bucket        = "bombbomb-github-actions"
+  s3_key           = "${var.config["prefix"]}-${var.subdomain}-${var.config["commit"]}-lambda.zip"
 
 }
 
