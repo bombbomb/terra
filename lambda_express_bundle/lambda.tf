@@ -8,7 +8,7 @@ resource "aws_lambda_function" "current" {
   role             = var.lambda_role_arn
   handler          = var.lambda_handler
   # source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  runtime          = var.lambda_runtime
+  runtime          = var.config["lambda_runtime"] != null ? var.config["lambda_runtime"] : var.lambda_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
   layers           = var.lambda_layers
