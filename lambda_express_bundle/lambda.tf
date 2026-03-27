@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_lambda_function" "current" {
-  filename         = local.zip_filename
+  # filename         = local.zip_filename
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = var.lambda_role_arn
   handler          = var.lambda_handler
@@ -15,6 +15,11 @@ resource "aws_lambda_function" "current" {
   environment {
     variables = var.lambda_environment_variables
   }
+
+  # Specify the S3 details
+  s3_bucket        = var.config["lambda_s3_bucket"]
+  s3_key           = var.config["lambda_s3_key"]
+
 }
 
 # we need vpc of metrics server and just it's subnet
