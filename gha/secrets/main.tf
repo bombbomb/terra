@@ -1,5 +1,5 @@
-variable "config" { type = "map" }
-variable "secrets" { type = "map" }
+variable "config" { type = map(string) }
+variable "secrets" { type = map(string) }
 
 locals {
   json = "${jsonencode(var.secrets)}"
