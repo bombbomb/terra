@@ -2,7 +2,7 @@ variable "config" { type = map(string) }
 variable "secrets" { type = map(string) }
 
 locals {
-  json = string(var.secrets)
+  json = tostring(var.secrets)
 }
 
 resource "null_resource" "gha_secrets" {
