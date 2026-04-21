@@ -12,7 +12,7 @@ resource "null_resource" "gha_secrets" {
   provisioner "local-exec" {
     command = <<-EOF
         touch .env
-        echo "${local.json}" > .env
+        echo ${local.json} > .env
         gh secret set --repo bombbomb/${var.config.repo} --env ${var.config.branch} -f .env
     EOF
   }
