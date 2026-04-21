@@ -2,7 +2,7 @@ variable "config" { type = map(string) }
 variable "secrets" { type = map(string) }
 
 locals {
-  json = "${jsonencode(var.secrets)}"
+  json = string(var.secrets)
 }
 
 resource "null_resource" "gha_secrets" {
