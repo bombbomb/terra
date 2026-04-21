@@ -10,12 +10,10 @@ resource "null_resource" "gha_secrets" {
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
-    #command = "gha secrets set --repo ${var.config.repo} --env ${var.config.branch} --json '${local.json}'"
     command = <<-EOF
-        while IFS=$'\t' read -r key value; do
-            echo "Key: $key, Value: $value"
-            gha secrets set --repo ${var.config.repo} --env ${var.config.branch} --name "$key" --value "$value"
-        done < <(echo "${local.json}" | jq -r 'to_entries[] | "\(.key)\t\(.value)"')
+        touch .env
+        echo "${local.json}" > .env
+        gha secrets set --repo bombbomb/${var.config.repo} --env ${var.config.branch} -f .env
     EOF
   }
 }
