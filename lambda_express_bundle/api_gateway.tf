@@ -20,9 +20,7 @@ resource "aws_api_gateway_resource" "all_paths" {
 
 resource "aws_api_gateway_deployment" "current" {
   rest_api_id       = aws_api_gateway_rest_api.current.id
-  stage_name        = var.config["branch"]
   description       = "Deployed at ${timestamp()}"
-  stage_description = "Deployed at ${timestamp()}"
 
   # Necessary to work with custom domain
   lifecycle {
@@ -33,6 +31,12 @@ resource "aws_api_gateway_deployment" "current" {
     aws_api_gateway_method.current,
     aws_api_gateway_integration.current
   ]
+}
+
+resource "aws_api_gateway_stage" "current" {
+  stage_name    = var.config["branch"]
+  rest_api_id   = aws_api_gateway_rest_api.current.id
+  deployment_id = aws_api_gateway_deployment.current.id
 }
 
 data "aws_acm_certificate" "selected" {
@@ -59,7 +63,7 @@ resource "aws_route53_record" "current" {
 
 resource "aws_api_gateway_base_path_mapping" "current" {
   api_id      = aws_api_gateway_rest_api.current.id
-  stage_name  = aws_api_gateway_deployment.current.stage_name
+  stage_name  = aws_api_gateway_stage.current.stage_name
   domain_name = aws_api_gateway_domain_name.current.domain_name
 }
 

@@ -3,38 +3,43 @@ locals {
 }
 
 resource "aws_lambda_function" "current" {
-  filename         = local.zip_filename
+  # filename         = local.zip_filename
   function_name    = "${var.config["prefix"]}-${var.subdomain}"
   role             = var.lambda_role_arn
   handler          = var.lambda_handler
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  runtime          = var.lambda_runtime
+  # source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  runtime          = var.config["lambda_runtime"] != null ? var.config["lambda_runtime"] : var.lambda_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
   layers           = var.lambda_layers
   environment {
     variables = var.lambda_environment_variables
   }
+
+  # Specify the S3 details
+  s3_bucket        = "bombbomb-github-actions"
+  s3_key           = "${var.config["prefix"]}-${var.subdomain}-${var.config["commit"]}-lambda.zip"
+
 }
 
 # we need vpc of metrics server and just it's subnet
 
-data "archive_file" "lambda_zip" {
-  type        = "zip"
-  source_dir  = var.lambda_path
-  output_path = local.zip_filename
-  depends_on = [null_resource.npm]
-}
+# data "archive_file" "lambda_zip" {
+#   type        = "zip"
+#   source_dir  = var.lambda_path
+#   output_path = local.zip_filename
+#   depends_on = [null_resource.npm]
+# }
 
-resource "null_resource" "npm" {
-  triggers = {
-    package = uuid()
-  }
+# resource "null_resource" "npm" {
+#   triggers = {
+#     package = uuid()
+#   }
 
-  provisioner "local-exec" {
-    command = "cd ${var.lambda_path} && ${var.build_command}"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "cd ${var.lambda_path} && ${var.build_command}"
+#   }
+# }
 
 resource "aws_lambda_permission" "current" {
   statement_id  = "AllowExecutionFromAPIGateway"
