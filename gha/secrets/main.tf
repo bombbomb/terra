@@ -2,7 +2,7 @@ variable "config" { type = map(string) }
 variable "secrets" { type = map(string) }
 
 locals {
-  json = tostring(var.secrets)
+  json = "${jsonencode(var.secrets)}"
 }
 
 resource "null_resource" "gha_secrets" {
@@ -12,7 +12,7 @@ resource "null_resource" "gha_secrets" {
   provisioner "local-exec" {
     command = <<-EOF
         touch .env
-        echo ${local.json} > .env
+        echo echo ${join(",", var.secrets)} > .env
         gh secret set --repo bombbomb/${var.config.repo} --env ${var.config.branch} -f .env
     EOF
   }
