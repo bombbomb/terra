@@ -11,10 +11,10 @@ resource "null_resource" "gha_secrets" {
   }
   provisioner "local-exec" {
     command = <<-EOF
-      echo "$SECRETS_JSON" | jq -r 'to_entries[] | "\(.key)\t\(.value)"' | while IFS=$'\t' read -r key value; do
-        gh secret set "$key" --body "$value" --env "$BRANCH" --repo "bombbomb/$REPO"
-      done
+      echo "$SECRETS_JSON" | jq -r --arg env "$BRANCH" --arg repo "bombbomb/$REPO" \
+        'to_entries[] | "gh secret set \(.key | @sh) --body \(.value | @sh) --env \($env | @sh) --repo \($repo | @sh)"' | sh
     EOF
+    
     environment = {
       SECRETS_JSON = local.json
       REPO         = var.config["repo"]
