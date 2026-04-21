@@ -13,7 +13,7 @@ resource "null_resource" "gha_secrets" {
     command = <<-EOF
         touch .env
         echo "${local.json}" > .env
-        gh secrets set --repo bombbomb/${var.config.repo} --env ${var.config.branch} -f .env
+        gh secret set --repo bombbomb/${var.config.repo} --env ${var.config.branch} -f .env
     EOF
   }
 }
