@@ -20,9 +20,7 @@ resource "aws_api_gateway_resource" "all_paths" {
 
 resource "aws_api_gateway_deployment" "current" {
   rest_api_id       = aws_api_gateway_rest_api.current.id
-  stage_name        = var.config["branch"]
   description       = "Deployed at ${timestamp()}"
-  stage_description = "Deployed at ${timestamp()}"
 
   # Necessary to work with custom domain
   lifecycle {

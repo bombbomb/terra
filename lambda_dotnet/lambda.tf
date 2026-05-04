@@ -22,7 +22,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "null_resource" "npm" {
-  triggers {
+  triggers = {
     package = "${uuid()}"
   }
 
