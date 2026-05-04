@@ -14,11 +14,16 @@ resource "aws_api_gateway_resource" "all_paths" {
   path_part   = "{proxy+}"
 }
 
+resource "aws_api_gateway_stage" "current" {
+  stage_name    = var.config["branch"]
+  rest_api_id   = aws_api_gateway_rest_api.current.id
+  deployment_id = aws_api_gateway_deployment.current.id
+}
+
+
 resource "aws_api_gateway_deployment" "current" {
   rest_api_id       = "${aws_api_gateway_rest_api.current.id}"
-  stage_name        = "${var.config["branch"]}"
   description       = "Deployed at ${timestamp()}"
-  stage_description = "Deployed at ${timestamp()}"
 
   # Necessary to work with custom domain
   lifecycle {
