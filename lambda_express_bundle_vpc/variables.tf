@@ -2,11 +2,10 @@ variable "config" { type = map }
 
 variable "subdomain" {}
 variable "lambda_role_arn" {}
-variable "lambda_path" {}
-
-variable "build_command" {
-  default = "npm ci && npm run lighthouse-build --if-present"
-}
+# Deprecated: no longer used. The bundle is read from S3 (see lambda.tf).
+# Kept so existing callers that still pass them keep working.
+variable "lambda_path" { default = null }
+variable "build_command" { default = null }
 
 variable "authorization" { default = "NONE" }
 
